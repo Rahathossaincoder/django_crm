@@ -5,9 +5,9 @@ from django.contrib.auth.models import User  # import Django's User model (the m
 from django import forms  # import Django forms module for defining form fields and widgets
 
 class SignUpForm(UserCreationForm):  # custom form subclassing UserCreationForm to add extra fields / widgets
-    email = forms.EmailField(Label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Email Address'}))  # email field; NOTE: use 'label' (lowercase) not 'Label'
-    first_name = forms.CharField(Label="",max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'First Name'}))  # first name field; same note about 'label'
-    last_name = forms.CharField(Label="",max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Last Name'}))  # last name field
+    email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Email Address'}))  # email field; NOTE: use 'label' (lowercase) not 'Label'
+    first_name = forms.CharField(label="",max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'First Name'}))  # first name field; same note about 'label'
+    last_name = forms.CharField(label="",max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Last Name'}))  # last name field
 
     class Meta:  # Meta config: tells the ModelForm which model and fields to use
         model = User  # the model tied to this form

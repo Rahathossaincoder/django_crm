@@ -39,5 +39,19 @@ def register_user(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-        #start codign from 1 hours 5 min
-    return render(request, 'register.html', {})
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            #is a dict (available after form.is_valid()) 
+            # containing the form's validated and converted field values.
+            #form.cleaned_data converts raw request.POST strings into the 
+            # appropriate Python types 
+            # (e.g. '30' → 30 int, '2026-03-05' → datetime.date); 
+            # only text fields (username/password) remain strings.
+            user = authenticate(username=username, password = password)
+            login(request, user)
+            messages.success(request, "registered successfully")
+            return redirect('home')
+    else:
+        form = SignUpForm()
+        return render(request, 'register.html', {'form':form})
+    return render(request, 'register.html', {'form':form})
