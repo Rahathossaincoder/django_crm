@@ -4,6 +4,7 @@ from django.contrib.auth.models import User  # import Django's User model (the m
 #user is basically the super user  # (original comment) inaccurate: User represents any user account, not only superuser
 from django import forms  # import Django forms module for defining form fields and widgets
 
+from .models import Record
 class SignUpForm(UserCreationForm):  # custom form subclassing UserCreationForm to add extra fields / widgets
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Email Address'}))  # email field; NOTE: use 'label' (lowercase) not 'Label'
     first_name = forms.CharField(label="",max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'First Name'}))  # first name field; same note about 'label'
@@ -31,4 +32,17 @@ class SignUpForm(UserCreationForm):  # custom form subclassing UserCreationForm 
         self.fields['password2'].label = ''  # remove label for password confirmation
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'  # short help_text for confirmation
 
+#create add record form
+class AddRecordFrom(forms.ModelForm):
+    first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"First Name", "class":"form-control"}), label="")
+    last_name =forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Last Name", "class":"form-control"}), label="")
+    email =forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"email", "class":"form-control"}), label="")
+    phone =forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Phone", "class":"form-control"}), label="")
+    address =forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Address", "class":"form-control"}), label="")
+    city =forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"city", "class":"form-control"}), label="")
+    state =forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"state", "class":"form-control"}), label="")
+    zipcode =forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"zipcode", "class":"form-control"}), label="")
 
+    class Meta:
+        model = Record
+        exclude = ("user",)
